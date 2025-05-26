@@ -58,7 +58,6 @@ def adams_method(f, x0, y0, xn, h):
 
 
 def get_equation(equation_choice):
-    """Возвращает функцию правой части ОДУ по выбору пользователя"""
     equations = {
         '1': lambda x, y: x + y,
         '2': lambda x, y: x ** 2 + y ** 2,
@@ -90,7 +89,7 @@ def calculate_errors(results, exact_solution_func, h, equation_choice, x0, y0, x
             elif method_name == 'runge_kutta4':
                 _, y_values_half = runge_kutta_4(get_equation(equation_choice), x0, y0, xn, h_half)
                 order = 4
-            # Находим ближайшие точки для сравнения (последняя точка при шаге h и соответствующая при шаге h/2)
+            # находим ближайшие точки для сравнения (последняя точка при шаге h и соответствующая при шаге h/2)
             y_h_end = y_values[-1]
             y_h2_end = y_values_half[int(len(y_values_half) * h / (xn - x0))] if y_values_half else float('nan')
             errors[method_name] = runge_rule_error(y_h_end, y_h2_end, order)
@@ -146,7 +145,6 @@ def plot_results(euler_results, rk4_results, adams_results, exact_solution_func=
 
 
 def get_input():
-    """Получает входные данные от пользователя"""
     print("выберите уравнение для решения:")
     print("1: dy/dx = x + y")
     print("2: dy/dx = x^2 + y^2")
@@ -168,7 +166,6 @@ def get_input():
 
 
 def solve_and_evaluate(equation_choice, x0, y0, xn, h, epsilon, exact_solution_func=None):
-    """Решает ОДУ различными методами, выводит результаты и строит графики"""
     f = get_equation(equation_choice)
     results = {
         'euler': euler_method(f, x0, y0, xn, h),
@@ -186,7 +183,6 @@ def solve_and_evaluate(equation_choice, x0, y0, xn, h, epsilon, exact_solution_f
 
 
 def main():
-    """Главная функция, запускающая процесс решения и сравнения методов"""
     inputs = get_input()
     if inputs:
         equation_choice, x0, y0, xn, h, epsilon, exact_solution_func = inputs
